@@ -13,31 +13,34 @@
       <table class="table">
         <thead class="thead-dark">
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">ID</th>
             <th scope="col">Book</th>
             <th scope="col">Author</th>
             <th scope="col">Pages</th>
-            <th scope="col">Actions</th>
+            <th scope="col">Edtiorial</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+          <tr *ngFor="let book of books;">
+            <th scope="row">{{ book.id }}</th>
+            <td>{{ book.book }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.pages }}</td>
+            <td>{{ book.editorial }}</td>
+            <td class="text-center">
+              <button class="btn btn-default"
+                (click)="editBook(book)">
+                <span class="fa fa-edit"></span>
+              </button>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-default"
+                (click)="removeBook(book)">
+                <span class="fa fa-remove"></span>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

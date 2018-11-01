@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row pt-4">
+    <div class="col-md-12">
+      <h3 *ngIf="book.id !== ''">Edit Book</h3>
+      <h3 *ngIf="book.id === ''">Create Book</h3>
+      <form>
+        <div class="row">
+          <div class="form-group col-sm-12 col-md-12 required">
+            <label for="book" class="col-form-label">
+              Book
+            </label>
+            <input class="form-control uppercase" type="text" name="book" [(ngModel)]="book.book" required>
+          </div>
+          <div class="form-group col-sm-12 col-md-12  required">
+            <label for="author" class="col-form-label">
+              Author
+            </label>
+            <input class="form-control uppercase" type="text" name="author" [(ngModel)]="book.author" required>
+
+          </div>
+          <div class="form-group col-sm-12 col-md-12  required">
+            <label for="pages" class="col-form-label">
+              Pages
+            </label>
+            <input class="form-control uppercase" type="text" name="pages" [(ngModel)]="book.pages" required>
+
+          </div>
+          <div class="form-group col-sm-12 col-md-12  required">
+            <label for="editorial" class="col-form-label">
+              Editorial
+            </label>
+            <input class="form-control uppercase" type="text" name="editorial" [(ngModel)]="book.editorial" required>
+          </div>
+          <div class="form-group col-sm-12 col-md-12">
+            <button
+              [disabled]="!validateBook(book)"
+              type="button"
+              (click)="store(book)"
+              class="btn btn-primary pull-right">
+              <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span> Guardar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

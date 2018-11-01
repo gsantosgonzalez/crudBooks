@@ -5,43 +5,54 @@ import { HttpClient } from '@angular/common/http';
 export class BooksService {
   constructor(private http: HttpClient) { }
 
-  public paginate() {
-      return [
-          {
-            id: 1,
-            book: 'Ensayo sobre la ceguera',
-            author: 'José Saramago',
-            pages: 250,
-            editorial: 'Alfaguara'
-          },
-          {
-            id: 2,
-            book: 'El Conde de Montecristo',
-            author: 'Alejandro Dumas',
-            pages: 700,
-            editorial: 'Porrúa'
-          },
-          {
-            id: 3,
-            book: 'Cien años de soledad',
-            author: 'Gabriel García Márquez',
-            pages: 320,
-            editorial: 'FCE'
-          },
-          {
-            id: 4,
-            book: 'Demian',
-            author: 'Herman Hesse',
-            pages: 180,
-            editorial: 'Tomo'
-          },
-          {
-            id: 5,
-            book: 'La Iliada',
-            author: 'Homero',
-            pages: 600,
-            editorial: 'Porrúa'
-          }
-      ];
+  public listBooks() {
+    const books = JSON.parse(localStorage.getItem('books'));
+
+    if (books) {
+      return books;
+    } else {
+      return [];
+    }
+
+  }
+
+  public getBook(id) {
+    const books = this.listBooks();
+
+    const book = books.find((book) => {
+      return book.id = id;
+    });
+
+    return book;
+  }
+
+  public addBook(book: any) {
+    return new Promise((resolve, reject) => {
+      const books = this.listBooks();
+
+      book.id = books.length + 1;
+
+      books.push(book);
+
+      localStorage.setItem('books', JSON.stringify(books));
+
+      resolve(true);
+    });
+  }
+
+  public removeBook(id: number): void {
+    const books = this.listBooks().filter((book) => {
+      return book.id !== id;
+    });
+
+    localStorage.setItem('books', books);
+  }
+
+  public updateBook(id: number, book: any) {
+    const books = this.listBooks().filter((book) => {
+      return book.id !== id;
+    });
+
+    localStorage.setItem('books', books);
   }
 }

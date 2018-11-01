@@ -15,11 +15,11 @@ export class BookListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.paginate();
+    this.listBooks();
   }
 
-  public paginate() {
-    this.books = this.bookService.paginate();
+  public listBooks() {
+    this.books = this.bookService.listBooks();
   }
 
 }
