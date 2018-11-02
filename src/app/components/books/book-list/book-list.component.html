@@ -23,8 +23,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let book of books;">
-            <th scope="row">{{ book.id }}</th>
+          <tr *ngFor="let book of books; let i = index;">
+            <th scope="row">{{ i + 1 }}</th>
             <td>{{ book.book }}</td>
             <td>{{ book.author }}</td>
             <td>{{ book.pages }}</td>

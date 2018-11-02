@@ -11,6 +11,7 @@ import { BookListComponent } from './components/books/book-list/book-list.compon
 import { BooksService } from './components/services/books.service';
 import { BookUpsertComponent } from './components/books/book-upsert/book-upsert.component';
 import { BsModalService, ModalModule } from 'ngx-bootstrap/modal';
+import { ToasterService } from 'angular2-toaster';
 
 const appRoutes: Routes = [
   {
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     BooksService,
-    BsModalService
+    BsModalService,
+    ToasterService
   ],
   bootstrap: [AppComponent]
 })

@@ -16,7 +16,9 @@ export class BookUpsertComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: BooksService
-  ) { }
+  ) {
+    this.initBookProperties();
+  }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -24,8 +26,6 @@ export class BookUpsertComponent implements OnInit, AfterViewInit {
 
       if (id) {
         this.book = this.service.getBook(id);
-      } else {
-        this.initBookProperties();
       }
     });
   }
@@ -39,7 +39,7 @@ export class BookUpsertComponent implements OnInit, AfterViewInit {
       id: '',
       book: '',
       author: '',
-      pages: 0,
+      pages: '',
       editorial: ''
     };
   }
@@ -55,13 +55,9 @@ export class BookUpsertComponent implements OnInit, AfterViewInit {
   }
 
   public store(book) {
-    if (book.id !== '') {
-        this.service.updateBook(book.id, book);
-    } else {
-      this.service.addBook(book).then(
-        (response) => {
-          this.router.navigate(['books/list']);
-      });
-    }
+    this.service.addBook(book).then(
+      (response) => {
+        this.router.navigate(['books/list']);
+    });
   }
 }

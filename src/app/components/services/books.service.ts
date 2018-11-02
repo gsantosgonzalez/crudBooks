@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import { reject } from 'q';
+import uuidv1 from 'uuid';
+
 @Injectable()
 export class BooksService {
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   public listBooks() {
     const books = JSON.parse(localStorage.getItem('books'));
@@ -20,19 +25,26 @@ export class BooksService {
     const books = this.listBooks();
 
     const book = books.find((book) => {
-      return book.id = id;
+      return book.id == id;
     });
 
     return book;
   }
 
-  public addBook(book: any) {
+  public addBook(newBook: any) {
     return new Promise((resolve, reject) => {
-      const books = this.listBooks();
+      let books = this.listBooks();
 
-      book.id = books.length + 1;
+      if (!newBook.id) {
+        newBook.id = uuidv1();
 
-      books.push(book);
+        books.push(newBook);
+      } else {
+        console.log(typeof newBook);
+        books = books.map((book) => {
+          return (book.id === newBook.id) ? newBook : book;
+        });
+      }
 
       localStorage.setItem('books', JSON.stringify(books));
 
@@ -40,19 +52,23 @@ export class BooksService {
     });
   }
 
-  public removeBook(id: number): void {
-    const books = this.listBooks().filter((book) => {
-      return book.id !== id;
+  public removeBook(id: number) {
+    const book = this.listBooks().find((book) => {
+      return book.id == id;
     });
 
-    localStorage.setItem('books', books);
-  }
+    if (!book) {
+      reject('Book not found');
+    }
 
-  public updateBook(id: number, book: any) {
-    const books = this.listBooks().filter((book) => {
-      return book.id !== id;
+    return new Promise((resolve, reject) => {
+      const books = this.listBooks().filter((book) => {
+        return book.id !== id;
+      });
+
+      localStorage.setItem('books', JSON.stringify(books));
+
+      resolve(true);
     });
-
-    localStorage.setItem('books', books);
   }
 }
