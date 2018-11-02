@@ -4,8 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Run project
 
 ```server
-$ git clone https://github.com/gsantosgonzalez/testIndigo
-$ cd testIndigo
+$ git clone https://github.com/gsantosgonzalez/crudBooks
+$ cd crudBooks
 $ npm install
 $ npm start
 ```
